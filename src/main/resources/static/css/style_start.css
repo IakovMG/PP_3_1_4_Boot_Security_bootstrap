@@ -1,0 +1,15 @@
+h2 {
+    padding: 3px;
+    border: 2px solid black;
+    text-align: center;
+    background-color: aliceblue;
+    color: black;
+}
+
+h3 {
+    padding: 2px;
+    border: 2px solid black;
+    text-align: center;
+    background-color: lightskyblue;
+    color: black;
+}
