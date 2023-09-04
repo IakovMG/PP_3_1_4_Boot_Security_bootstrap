@@ -7,9 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -48,7 +46,8 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, int age, String email, String password, Set<Role> roles) {
+    public User(String username, int age, String email, String password,
+                Set<Role> roles) {
         this.username = username;
         this.age = age;
         this.email = email;
@@ -89,9 +88,11 @@ public class User implements UserDetails {
         this.email = email;
     }
 
+
     public Set<Role> getRoles() {
         return roles;
     }
+
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;

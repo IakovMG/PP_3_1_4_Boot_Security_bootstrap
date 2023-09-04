@@ -1,12 +1,14 @@
-package ru.kata.spring.boot_security.demo.services;
-
+package ru.kata.spring.boot_security.demo.dao;
 
 import ru.kata.spring.boot_security.demo.entities.User;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface UserService {
+public interface UserDAO {
+
     void updateUser(long id, User user);
+
 
     void deleteUser(long id);
 
@@ -14,8 +16,9 @@ public interface UserService {
 
     List<User> getAllUsers();
 
-    User getUserById(long id);
+    User getUserById(Long id);
 
     User getUserByUsername(String username);
+
 
 }

@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(name = "name")
     private String role;
@@ -17,11 +17,12 @@ public class Role implements GrantedAuthority {
     public Role() {
     }
 
+
     public Role(String role) {
         this.role = role;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
