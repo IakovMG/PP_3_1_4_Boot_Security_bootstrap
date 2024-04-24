@@ -14,7 +14,8 @@ public interface RoleDAO {
 
     Role findRoleById(long id);
 
-    Optional<Role> getRoleByName(String name);
+    /*    Optional<Role> getRoleByName(String name);*/
+    Role getRoleByName(String name);
 
 
 }

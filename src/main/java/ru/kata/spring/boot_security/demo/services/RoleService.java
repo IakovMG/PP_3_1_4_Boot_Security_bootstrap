@@ -10,7 +10,11 @@ public interface RoleService {
 
     public Role findRoleById(int id);
 
+/*
     Optional<Role> getRoleByName(String name);
+*/
+    Role getRoleByName(String name);
+
 
 
 }

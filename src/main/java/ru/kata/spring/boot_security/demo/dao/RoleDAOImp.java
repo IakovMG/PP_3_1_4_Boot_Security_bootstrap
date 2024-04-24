@@ -28,12 +28,18 @@ public class RoleDAOImp implements RoleDAO {
         return role;
     }
 
-    @Override
+/*    @Override
     public Optional<Role> getRoleByName(String name) {
         return entityManager.createQuery("SELECT role FROM Role role WHERE role.role = :name", Role.class)
                 .setParameter("name", "ROLE_" + name)
                 .getResultStream()
                 .findAny();
+    }*/
+
+    @Override
+    public Role getRoleByName(String name) {
+        return entityManager.createQuery("SELECT role FROM Role role WHERE role.role = :name", Role.class)
+                .setParameter("name", "ROLE_" + name).getSingleResult();
     }
 
 

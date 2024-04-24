@@ -40,7 +40,7 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String toString() {
-        return this.role;
+        return this.role.substring(5);
     }
 
     @Override

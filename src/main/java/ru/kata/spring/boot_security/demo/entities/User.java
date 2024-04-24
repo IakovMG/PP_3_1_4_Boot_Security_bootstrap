@@ -19,21 +19,26 @@ public class User implements UserDetails {
     private long id;
 
     @Column(name = "username")
-    @NotBlank(message = "Username should not be empty")
-    @Size(min = 1, max = 80, message = "Username should be between 1 and 80 characters")
+   /* @NotBlank(message = "Username should not be empty")
+    @Size(min = 1, max = 80, message = "Username should be between 1 and 80 characters")*/
     private String username;
 
-    @Column(name = "password")
-    @NotBlank(message = "Password should not be empty")
-    private String password;
+    @Column(name = "lastname")
+    /*@NotBlank(message = "Lastname should not be empty")
+    @Size(min = 1, max = 80, message = "Username should be between 1 and 80 characters")*/
+    private String lastName;
 
     @Column(name = "age")
-    @Min(value = 0, message = "Age should be more than 0!")
+//    @Min(value = 0, message = "Age should be more than 0!")
     private int age;
 
     @Column(name = "email")
-    @Email(message = "Email is wrong")
+//    @Email(message = "Email is wrong")
     private String email;
+
+    @Column(name = "password")
+//    @NotBlank(message = "Password should not be empty")
+    private String password;
 
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -41,14 +46,19 @@ public class User implements UserDetails {
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles = new HashSet<>() {
+        {
+            add(new Role());
+        }
+    };
 
     public User() {
     }
 
-    public User(String username, int age, String email, String password,
+    public User(String username, String lastname, int age, String email, String password,
                 Set<Role> roles) {
         this.username = username;
+        this.lastName = lastname;
         this.age = age;
         this.email = email;
         this.password = password;
@@ -72,6 +82,14 @@ public class User implements UserDetails {
     }
 
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public int getAge() {
         return age;
     }
@@ -88,11 +106,9 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-
     public Set<Role> getRoles() {
         return roles;
     }
-
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;

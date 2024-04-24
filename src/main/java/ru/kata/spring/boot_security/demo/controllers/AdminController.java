@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,20 +23,15 @@ public class AdminController {
 
     public AdminController(UserDAOServiceImp userDAOServiceImp, RoleService roleService) {
         this.userDAOServiceImp = userDAOServiceImp;
-
         this.roleService = roleService;
     }
 
     @GetMapping()
-    public String showAllUsers(Model model) {
+    public String adminPage(Model model, Authentication authentication) {
+        model.addAttribute("user", authentication.getPrincipal());
         model.addAttribute("allUsers", userDAOServiceImp.getAllUsers());
-        return "showAllUsers";
-    }
-
-    @GetMapping("/new")
-    public String newUser(Model model) {
-        model.addAttribute("user", new User());
-        return "newUser";
+        model.addAttribute("allRoles", roleService.getAllRoles());
+        return "pAdmin";
     }
 
     @PostMapping()
@@ -47,7 +43,7 @@ public class AdminController {
         Set<Role> selectRoles = user.getRoles();
         if (selectRoles != null && !selectRoles.isEmpty()) {
             for (Role name : selectRoles) {
-                roles.add(roleService.getRoleByName(name.toString()).get());
+                roles.add(roleService.getRoleByName(name.toString()));
             }
         }
         user.setRoles(roles);
@@ -55,24 +51,14 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/{id}/edit")
-    public String editUser(@PathVariable("id") Long id, Model model) {
-
-        model.addAttribute("user", userDAOServiceImp.getUserById(id));
-        return "edit";
-    }
-
     @PatchMapping("/{id}")
-    public String updateUser(@ModelAttribute("user") @Valid User user, @PathVariable("id") Long id, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "edit";
-        }
+    public String updateUser(@PathVariable("id") Long id, @ModelAttribute("user") @Valid User user) {
 
         Set<Role> roles = new HashSet<>();
         Set<Role> selectRoles = user.getRoles();
         if (selectRoles != null && !selectRoles.isEmpty()) {
             for (Role name : selectRoles) {
-                roles.add(roleService.getRoleByName(name.toString()).get());
+                roles.add(roleService.getRoleByName(name.toString()));
             }
         }
         user.setRoles(roles);

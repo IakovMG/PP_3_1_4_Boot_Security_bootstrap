@@ -30,8 +30,13 @@ public class RoleDAOServiceImp implements RoleService {
         return roleDAO.findRoleById(id);
     }
 
-    @Override
+/*    @Override
     public Optional<Role> getRoleByName(String name) {
+        return roleDAO.getRoleByName(name);
+    }*/
+
+    @Override
+    public Role getRoleByName(String name) {
         return roleDAO.getRoleByName(name);
     }
 }
